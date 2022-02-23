@@ -1,31 +1,41 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View, Alert } from 'react-native';
-import { AuthContext } from './context'; // !
+import { color } from 'react-native/Libraries/Components/View/ReactNativeStyleAttributes';
+//import { auth } from '../firebase';
+import { LoginStyles } from './styles/LoginStyles';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { initializeApp } from 'firebase/app';
+import { firebaseConfig } from '../firebase';
+import { AuthContext } from './context';
+import validator from 'validator';
 
-const registerScreen = () => {
-    const [user, setUser] = useState({ email: '', password: '', confirmPassowrd: '', name: '', userName: '' });
-    const [InputText, setInputText] = useState('')
+const CheckEmailScreen = () => {
+
+    const [code, setCode] = useState('')
 
     const { signIn } = React.useContext(AuthContext);
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
 
     const navigation = useNavigation();
 
     const handleSignUp = () => {
+        //console.log(name, userName, email, password, confirmPassowrd);
         {
-            user.confirmPassowrd === user.password && user.email !== '' && user.password !== '' && user.confirmPassowrd !== '' & user.name !== '' & user.useName !== '' ?
-                (
-                    // Alert.alert('user', user, [
-                    //     { text: 'Okay' }
-                    // ]),
-                    console.log(user),
-                    signIn(user.email, user.password, 'RegisterIn')
-                )
+            confirmPassowrd == password ?
+                createUserWithEmailAndPassword(auth, email, password)
+                    .then((userCredential) => {
+                        console.log('Account created!');
+                        const user = userCredential.user;
+                        const token = user.refreshToken;
+                        signIn(email, password, token)
+                    })
+                    .catch(error => alert(error.message))
                 :
                 Alert.alert('Пароли не совпадают', 'Введите пароль снова', [
                     { text: 'Okay' }
-                ]),
-                console.log(user);
+                ]);
         }
     }
 
@@ -39,61 +49,22 @@ const registerScreen = () => {
                 style={styles.containerIn}
                 behavior={Platform.OS === "ios" ? "padding" : 1000}
             >
-                <View style={{ alignItems: 'center' }}><Text style={styles.RegisterText}>Register</Text></View>
+                <View style={{ alignItems: 'center' }}><Text style={styles.RegisterText}>Code Screen</Text></View>
                 <View style={styles.inputContainer}>
                     <TextInput
-                        placeholder="Name"
+                        placeholder="code"
                         placeholderTextColor={'#B7B6BB'}
-                        name='name'
-                        onChangeText={(text) => setUser({ ...user, name: text })}
+                        value={code}
+                        onChangeText={text => setCode(text)}
                         style={[styles.input, styles.inputMarginBottom]}
                     />
-                    <TextInput
-                        placeholder="Username"
-                        placeholderTextColor={'#B7B6BB'}
-                        name='userName'
-                        onChangeText={(text) => setUser({ ...user, userName: text })}
-                        style={[styles.input, styles.inputMarginBottom]}
-                    />
-                    <TextInput
-                        placeholder="Email"
-                        placeholderTextColor={'#B7B6BB'}
-                        name='email'
-                        onChangeText={(text) => setUser({ ...user, email: text })}
-                        style={[styles.input, styles.inputMarginBottom]}
-                    />
-                    <View>
-                        <TextInput
-                            placeholder="Password"
-                            name='password'
-                            onChangeText={(text) => setUser({ ...user, password: text })}
-                            style={[styles.input, styles.inputMarginBottom]}
-                            secureTextEntry
-                        />
-                        <TextInput
-                            placeholder="Confirm password"
-                            name='confirmPassowrd'
-                            onChangeText={(text) => setUser({ ...user, confirmPassowrd: text })}
-                            style={[styles.input, styles.inputMarginBottom]}
-                            secureTextEntry
-                        />
-                    </View>
                 </View>
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity
                         onPress={handleSignUp}
                         style={styles.button}
                     >
-                        <Text style={styles.buttonText}>Submit</Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.container}>
-                    <Text style={styles.PolicyText}>By register, you agree to our Terms, Data Policy and Cookies Policy.</Text>
-                </View>
-                <View style={styles.container3}>
-                    <Text style={styles.LogInText}>Already a member?</Text>
-                    <TouchableOpacity style={styles.LogInHundle} onPress={handleLoginIn}>
-                        <Text style={[styles.LogInText, { color: '#4596EC' }]}>Log in</Text>
+                        <Text style={styles.buttonText}>Подтвердить</Text>
                     </TouchableOpacity>
                 </View>
             </KeyboardAvoidingView>
@@ -101,7 +72,7 @@ const registerScreen = () => {
     )
 }
 
-export default registerScreen;
+export default CheckEmailScreen;
 
 const styles = StyleSheet.create({
     RegisterText: {

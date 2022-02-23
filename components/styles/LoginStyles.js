@@ -3,19 +3,15 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
 export const LoginStyles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#292929',
-    },
     containerIn: {
-        flex: 2,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginTop: 0
     },
     inputContainer: {
         width: '80%',
         position: 'relative',
-        //backgroundColor: '#EAC3AB',
+        marginBottom: 16
     },
     input: {
         paddingHorizontal: 15,
@@ -23,30 +19,30 @@ export const LoginStyles = StyleSheet.create({
         borderRadius: 10,
         marginTop: 0,
         fontSize: 14,
-        backgroundColor: '#353535',
-        shadowColor: "#000",
-        shadowOpacity: 0.5,
-        shadowRadius: 8,
-        color: '#FFFFFF',
-        shadowOffset: {
-            width: 0,
-            height: 0
-        },
+        backgroundColor: '#F2F2F4',
+        color: 'black'
+        // shadowColor: "#000",
+        // shadowOpacity: 0.5,
+        // shadowRadius: 8,
+        // color: '#FFFFFF',
+        // shadowOffset: {
+        //     width: 0,
+        //     height: 0
+        // },
     },
     inputMarginBottom: {
-        marginBottom: 7,
+        marginBottom: 16,
     },
     buttonContainer: {
         width: '60%',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 50,
+        marginTop: 16,
+        marginBottom: 15
     },
     button: {
-        backgroundColor: '#353535',
-        shadowColor: "#000",
+        backgroundColor: '#8086B9',
+        shadowColor: "black",
         shadowOpacity: 0.5,
-        shadowRadius: 8,
+        shadowRadius: 5,
         color: '#FFFFFF',
         shadowOffset: {
             width: 0,
@@ -54,8 +50,11 @@ export const LoginStyles = StyleSheet.create({
         },
         width: '100%',
         padding: 15,
-        borderRadius: 12,
+        borderRadius: 30,
         alignItems: 'center',
+        justifyContent: 'center',
+        height: 48,
+        marginBottom: 16
     },
     buttonOutline: {
         backgroundColor: '#353535',
@@ -77,9 +76,12 @@ export const LoginStyles = StyleSheet.create({
         fontSize: 14
     },
     buttonText: {
-        color: '#FF8B00',
+        color: '#FFFFFF',
         fontWeight: '700',
         fontSize: 14
+    },
+    container: {
+        marginBottom: 16
     },
     buttonFORGOT: {
         alignItems: 'flex-end',
@@ -91,11 +93,36 @@ export const LoginStyles = StyleSheet.create({
         height: 47
     },
     buttonTextFORGOT: {
-        color: '#FF8B00',
+        color: '#4596EC',
         fontSize: 14,
         paddingTop: 15
     },
     ContainerPassword_Forgot: {
         //backgroundColor: '#EAC3AB',
-    }
+    },
+    RegisterText: {
+        marginTop: 174,
+        marginBottom: 33,
+        fontFamily: 'RobotoBold',
+        fontSize: 28,
+        color: '#4596EC',
+        // backgroundColor: 'yellow'
+    },
+    PolicyText: {
+        fontSize: 10,
+        color: '#A4A4A4',
+        fontFamily: 'RobotoRegular'
+    },
+    container3: {
+        flexDirection: 'row',
+        // backgroundColor: 'yellow',
+        marginRight: 20,
+        marginLeft: 20,
+    },
+    LogInText: {
+        fontFamily: 'RobotoBold',
+        fontSize: 14,
+        color: '#A4A4A4',
+        marginLeft: 4
+    },
 })

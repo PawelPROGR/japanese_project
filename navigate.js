@@ -5,24 +5,26 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { AuthContext } from './components/context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { View, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator, Image, Text } from 'react-native';
 import forgotpasswordScreen from './components/forgotpasswordScreen';
 import registerScreen from './components/RegisterScreen';
 
 // Screens
 import Main from './components/Main';
-import Settings from './components/settings';
+import Shop from './components/shop';
 import Language from './components/Lang';
-import Profile from './components/Profile'
+import Profile from './components/Profile';
+import CheckEmailScreen from './components/checkemail'
 
 //Screen names
 const home = "Home";
 const language = "Lang";
-const settings = "Settings";
+const shop = "Shop";
 const profile = "Profile";
 
 //Screens without Tab
 import LoginScreen from './components/LoginScreen';
+import firstLoginScreen from './components/firstLoginScreen'
 
 export const Navigate = () => {
   const Stack = createStackNavigator();
@@ -104,13 +106,18 @@ export const Navigate = () => {
         console.log(e);
       }
       dispatch({ type: 'RETRIEVE_TOKEN', token: userToken });
-    }, 500);
+    }, 2500);
   }, []);
 
   if (loginState.isLoading) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ActivityIndicator size="large" />
+        <Image
+          style={{ height: 200, resizeMode: "contain", backgroundColor: "#ffffff" }}
+          source={require('./assets/fuji.png')}
+        />
+        <Text style={{ fontSize: 18, marginTop: 20, color: '#494949' }}>JAPANGO</Text>
+        <Text style={{ fontSize: 20, marginTop: 0, color: '#494949' }}>日本語</Text>
       </View>
     );
   }
@@ -120,6 +127,7 @@ export const Navigate = () => {
       <Tab.Navigator
         initialRouteName={home}
         screenOptions={({ route }) => ({
+          title: '',
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
             let rn = route.name;
@@ -130,8 +138,8 @@ export const Navigate = () => {
             } else if (rn === language) {
               iconName = focused ? 'apps' : 'apps-outline';
 
-            } else if (rn === settings) {
-              iconName = focused ? 'settings' : 'settings-outline';
+            } else if (rn === shop) {
+              iconName = focused ? 'pricetags' : 'pricetags-outline';
 
             } else if (rn === profile) {
               iconName = focused ? 'person' : 'person-outline';
@@ -143,13 +151,14 @@ export const Navigate = () => {
           tabBarStyle: {
             height: 60,
             paddingTop: 10,
-            paddingBottom: 10,
+            //paddingBottom: 10,
             borderTopWidth: 0,
             backgroundColor: '#000',
             backgroundColor: '#353535',
             shadowColor: "#000",
             shadowOpacity: 0.3,
             shadowRadius: 8,
+
             shadowOffset: {
               width: 0,
               height: 0
@@ -158,7 +167,7 @@ export const Navigate = () => {
         })}>
         <Tab.Screen options={{ headerShown: false }} name={home} component={Main} />
         <Tab.Screen options={{ headerShown: false }} name={language} component={Language} />
-        <Tab.Screen options={{ headerShown: false }} name={settings} component={Settings} />
+        <Tab.Screen options={{ headerShown: false }} name={shop} component={Shop} />
         <Tab.Screen options={{ headerShown: false }} name={profile} component={Profile} />
       </Tab.Navigator>
     );
@@ -173,9 +182,11 @@ export const Navigate = () => {
       )
         :
         <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="App">
+          <Stack.Screen name="firstLoginScreen" component={firstLoginScreen} />
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="forgot" component={forgotpasswordScreen} />
           <Stack.Screen name="Register" component={registerScreen} />
+          <Stack.Screen name="CheckEmailScreen" component={CheckEmailScreen} />
         </Stack.Navigator>
       }
     </AuthContext.Provider>

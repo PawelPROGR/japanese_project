@@ -3,12 +3,12 @@ import { StyleSheet, Text, View, SafeAreaView, Image } from 'react-native';
 import { MainScreen } from './styles/GL';
 
 
-const Settings = () => {
+const Shop = () => {
   return (
     <View style={{ flex: 1 }}>
       <View style={MainScreen.container}>
         <View style={MainScreen.textViewCont}>
-          <Text style={[MainScreen.text, { fontSize: 14 }]}>Настройки</Text>
+          <Text style={[MainScreen.text, { fontSize: 14 }]}>Магазин</Text>
         </View>
       </View>
     </View>
@@ -19,4 +19,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default Settings;
+export default Shop;

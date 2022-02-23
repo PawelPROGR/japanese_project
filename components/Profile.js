@@ -4,9 +4,6 @@ import { StyleSheet, Text, View, SafeAreaView, Image, TouchableOpacity } from 'r
 import { MainScreen } from './styles/GL';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { AuthContext } from './context'; // состояние входа/выхода
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-import { initializeApp } from 'firebase/app';
-import { firebaseConfig } from '../firebase';
 
 const Profile = () => {
 
